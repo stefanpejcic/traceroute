@@ -19,7 +19,8 @@ import requests
 from flask_babel import Babel, _
 
 # Import stuff from OpenPanel core
-from app import app, inject_data, get_openpanel_ip, login_required_route
+from app import app, inject_data, login_required_route
+from modules.core.init import fetch_public_ip
 
 # custom funtion example
 def get_client_ip():
@@ -110,7 +111,7 @@ def traceroute():
 
     # return ip address for openpanel account
     current_username = inject_data().get('current_username') # returns username of the current openpanel account
-    server_ip = get_openpanel_ip(current_username) # returns IP for the current openpanel account
+    server_ip = fetch_public_ip() # returns IP for the current openpanel account
     client_ip = get_client_ip() # returns ip form our cusotm function
 
     return render_template_string(
